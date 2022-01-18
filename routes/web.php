@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\DataOpdController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -20,9 +22,11 @@ Route::get('/', function () {
 
 Auth::routes();
 
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::group(['middleware' => ['auth', 'role:superadmin']], function () {
-    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-    Route::get('/dashboard', function () {
-        return view('dashboard.layouts.main');
+    Route::get('/dashboard/home', function () {
+        return view('dashboard.home');
     });
+    Route::resource('dashboard/dataopd', DataOpdController::class);
+    Route::resource('dashboard/user', UserController::class);
 });

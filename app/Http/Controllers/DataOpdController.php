@@ -14,7 +14,8 @@ class DataOpdController extends Controller
      */
     public function index()
     {
-        //
+        $opds = DataOpd::all();
+        return view('dashboard/opd/index', ['opds' => $opds]);
     }
 
     /**
@@ -24,7 +25,7 @@ class DataOpdController extends Controller
      */
     public function create()
     {
-        //
+        return view('dashboard/opd/create');
     }
 
     /**
@@ -35,7 +36,14 @@ class DataOpdController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'nama_opd' => 'required',
+        ]);
+
+        DataOpd::create([
+            'nama_opd' => $request->nama_opd,
+        ]);
+        return redirect('dashboard/dataopd')->with('status', 'Data OPD Berhasil Ditambah');
     }
 
     /**
@@ -44,7 +52,7 @@ class DataOpdController extends Controller
      * @param  \App\Models\DataOpd  $dataOpd
      * @return \Illuminate\Http\Response
      */
-    public function show(DataOpd $dataOpd)
+    public function show(DataOpd $dataopd)
     {
         //
     }
@@ -55,9 +63,9 @@ class DataOpdController extends Controller
      * @param  \App\Models\DataOpd  $dataOpd
      * @return \Illuminate\Http\Response
      */
-    public function edit(DataOpd $dataOpd)
+    public function edit(DataOpd $dataopd)
     {
-        //
+        return view('dashboard/opd/edit', ['dataopd' => $dataopd]);
     }
 
     /**
@@ -67,7 +75,7 @@ class DataOpdController extends Controller
      * @param  \App\Models\DataOpd  $dataOpd
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, DataOpd $dataOpd)
+    public function update(Request $request, DataOpd $dataopd)
     {
         //
     }
@@ -78,7 +86,7 @@ class DataOpdController extends Controller
      * @param  \App\Models\DataOpd  $dataOpd
      * @return \Illuminate\Http\Response
      */
-    public function destroy(DataOpd $dataOpd)
+    public function destroy(DataOpd $dataopd)
     {
         //
     }
