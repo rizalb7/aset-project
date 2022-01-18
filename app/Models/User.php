@@ -12,6 +12,14 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
+    public function hasRole($role)
+    {
+        // check param $role dengan field usertype
+        if ($role == $this->usertype) {
+            return true;
+        }
+        return false;
+    }
     /**
      * The attributes that are mass assignable.
      *
