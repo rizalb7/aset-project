@@ -77,7 +77,14 @@ class DataOpdController extends Controller
      */
     public function update(Request $request, DataOpd $dataopd)
     {
-        //
+        $request->validate([
+            'nama_opd' => 'required',
+        ]);
+
+        $dataopd->update([
+            'nama_opd' => $request->nama_opd,
+        ]);
+        return redirect('dashboard/dataopd')->with('status', 'Data OPD Berhasil Diubah');
     }
 
     /**

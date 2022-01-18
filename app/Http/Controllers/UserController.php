@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\DataOpd;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -25,7 +26,8 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('dashboard/user/create');
+        $opds = DataOpd::all();
+        return view('dashboard/user/create', ['opds' => $opds]);
     }
 
     /**
@@ -36,7 +38,21 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required|min:3',
+            'email' => 'required|min:3',
+            'password' => 'required|min:3',
+            'role' => 'required',
+        ]);
+
+        User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'role' => $request->role,
+            'data_opd_id' => $request->data_opd_id,
+            'password' => bcrypt($request->password),
+        ]);
+        return redirect('dashboard/user')->with('status', 'Data Users Berhasil Ditambah');
     }
 
     /**
@@ -58,7 +74,7 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        //
+        return view('dashboard/user/edit', ['user' => $user]);
     }
 
     /**
@@ -70,7 +86,16 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        //
+        $request->validate([
+            'name' => 'required|min:3',
+            'email' => 'required|min:3',
+        ]);
+
+        $user->update([
+            'name' => $request->name,
+            'email' => $request->email,
+        ]);
+        return redirect('dashboard/user')->with('status', 'Data Users Berhasil Diubah');
     }
 
     /**
@@ -81,6 +106,7 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        //
+        $user->delete();
+        return redirect('dashboard/user')->with('status', 'Data Users Berhasil Dihapus');
     }
 }

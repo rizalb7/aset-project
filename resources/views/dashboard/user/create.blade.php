@@ -48,6 +48,18 @@
                     </select>
                   </div>
                 </div>
+                
+                <div class="row mb-3">
+                  <label class="col-sm-2 col-form-label">Admin OPD</label>
+                  <div class="col-sm-10">
+                    <select name="data_opd_id" id="data_opd_id" class="form-select" aria-label="Default select example">
+                      <option selected>-Pilih OPD-</option>
+                        @foreach ($opds as $item)
+                            <option value="{{$item->id}}">{{$item->nama_opd}}</option>
+                        @endforeach
+                    </select>
+                  </div>
+                </div>
                 <center>
                     <div class="row mb-3">
                       <div class="col-sm-10">
