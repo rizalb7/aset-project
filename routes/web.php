@@ -37,5 +37,8 @@ Route::group(['middleware' => ['auth', 'role:superadmin,admin_opd']], function (
     Route::get('/dashboard/home', function () {
         return view('dashboard.home');
     });
+    Route::get('dashboard/aset/importexport', [AsetController::class, 'showImportExport']);
+    Route::get('dashboard/aset/export', [AsetController::class, 'export'])->name('export');
+    Route::post('dashboard/aset/import', [AsetController::class, 'import'])->name('import');
     Route::resource('dashboard/aset', AsetController::class);
 });

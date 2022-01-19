@@ -13,7 +13,8 @@
             <table class="table datatable">
             <thead>
                 <tr>
-                <th scope="col">#</th>
+                {{-- <th scope="col">#</th> --}}
+                <th scope="col">ID Kategori</th>
                 <th scope="col">Nama Kategori</th>
                 <th scope="col">Action</th>
                 </tr>
@@ -21,7 +22,8 @@
             <tbody>
                 @foreach ($kategori_asets as $item)
                     <tr>
-                    <th scope="row">{{$loop->iteration}}</th>
+                    {{-- <th scope="row">{{$loop->iteration}}</th> --}}
+                    <td>{{$item->id}}</td>
                     <td>{{$item->nama_kategori}}</td>
                     <td>
                         <center>

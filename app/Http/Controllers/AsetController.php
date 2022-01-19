@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\AsetsExport;
+use App\Exports\AsetUserExport;
+use App\Imports\AsetsImport;
 use App\Models\Aset;
 use App\Models\KategoriAset;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class AsetController extends Controller
 {
@@ -24,6 +28,31 @@ class AsetController extends Controller
         return view('dashboard/aset/index', ['asets' => $asets]);
     }
 
+    // Display Import/Export Data Aset
+    public function showImportExport()
+    {
+        return view('dashboard/aset/importexport');
+    }
+
+    // Process Export Data
+    public function export()
+    {
+        if (auth()->user()->role == 'superadmin'){
+            return Excel::download(new AsetsExport, time().'-aset.xlsx');
+        }else{
+            return (new AsetUserExport(auth()->user()->id))->download(time().'-aset.xlsx');
+        }
+    }
+
+    // Process Import Data
+    public function import(Request $request)
+    {
+        $request->validate([
+            'file' => 'required|mimes:xls,xlsx|max:4096'
+        ]);
+        Excel::import(new AsetsImport, $request->file('file'));
+        return redirect('dashboard/aset')->with('status', 'Data Aset TIK Berhasil Diimport');
+    }
     /**
      * Show the form for creating a new resource.
      *

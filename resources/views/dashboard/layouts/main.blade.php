@@ -131,6 +131,11 @@
               <i class="bi bi-circle"></i><span>Tambah Aset TIK</span>
             </a>
           </li>
+          <li>
+            <a href="{{url('dashboard/aset/importexport')}}">
+              <i class="bi bi-circle"></i><span>Import/Export Aset TIK</span>
+            </a>
+          </li>
         </ul>
       </li><!-- End Aset Nav -->
 
