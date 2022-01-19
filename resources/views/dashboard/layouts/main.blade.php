@@ -122,13 +122,31 @@
         </a>
         <ul id="aset-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
-            <a href="{{url('dashboard/user')}}">
+            <a href="{{url('dashboard/aset')}}">
               <i class="bi bi-circle"></i><span>Data Aset TIK</span>
             </a>
           </li>
           <li>
-            <a href="{{url('dashboard/user/create')}}">
+            <a href="{{url('dashboard/aset/create')}}">
               <i class="bi bi-circle"></i><span>Tambah Aset TIK</span>
+            </a>
+          </li>
+        </ul>
+      </li><!-- End Aset Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#kataset-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-layout-text-window"></i><span>Kategori Aset TIK</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="kataset-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="{{url('dashboard/kategori-aset')}}">
+              <i class="bi bi-circle"></i><span>Data Kategori</span>
+            </a>
+          </li>
+          <li>
+            <a href="{{url('dashboard/kategori-aset/create')}}">
+              <i class="bi bi-circle"></i><span>Tambah Kategori</span>
             </a>
           </li>
         </ul>

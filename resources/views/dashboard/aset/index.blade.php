@@ -8,33 +8,39 @@
     <div class="col-lg-12">
         <div class="card">
         <div class="card-body">
-            <h5 class="card-title">Data Users</h5>
+            <h5 class="card-title">Data Aset TIK</h5>
             <!-- Table with stripped rows -->
             <table class="table datatable">
             <thead>
                 <tr>
                 <th scope="col">#</th>
-                <th scope="col">Nama</th>
-                <th scope="col">Email</th>
-                <th scope="col">Role</th>
+                <th scope="col">Kode Barang</th>
+                <th scope="col">Nama Barang</th>
+                <th scope="col">Kategori</th>
+                @if (auth()->user()->role == 'superadmin')
+                    <th scope="col">OPD</th>
+                @endif
                 <th scope="col">Action</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach ($users as $item)
+                @foreach ($asets as $item)
                     <tr>
                     <th scope="row">{{$loop->iteration}}</th>
-                    <td>{{$item->name}}</td>
-                    <td>{{$item->email}}</td>
-                    <td>{{$item->role}}</td>
+                    <td>{{$item->kode_barang}}</td>
+                    <td>{{$item->nama_barang}}</td>
+                    <td>{{$item->kategori_aset_id}}</td>
+                    @if (auth()->user()->role == 'superadmin')
+                        <td>{{\App\Models\DataOpd::whereId($item->user->data_opd_id)->first()->nama_opd}}</td>
+                    @endif
                     <td>
                         <center>
-                            <a href="{{ url('dashboard/user/' . $item->id . '/edit') }}"
-                                class="btn btn-info btn-sm" title="Edit User">
+                            <a href="{{ url('dashboard/aset/' . $item->id . '/edit') }}"
+                                class="btn btn-info btn-sm" title="Edit aset">
                                 <i class="bi bi-pencil"></i>
                             </a>
                             @if ($item->role != 'superadmin')
-                                <form action="{{ url('dashboard/user/' . $item->id) }}" method="post"
+                                <form action="{{ url('dashboard/aset/' . $item->id) }}" method="post"
                                     class="d-inline" onsubmit="return confirm('Yakin hapus data ini?')">
                                     @method('delete')
                                     @csrf

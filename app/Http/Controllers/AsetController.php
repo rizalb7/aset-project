@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Aset;
+use App\Models\KategoriAset;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class AsetController extends Controller
@@ -14,7 +16,8 @@ class AsetController extends Controller
      */
     public function index()
     {
-        //
+        $asets = Aset::all();
+        return view('dashboard/aset/index', ['asets' => $asets]);
     }
 
     /**
@@ -24,7 +27,9 @@ class AsetController extends Controller
      */
     public function create()
     {
-        //
+        $kategori_asets = KategoriAset::all();
+        $users = User::where('role', 'NOT LIKE', 'superadmin')->get();
+        return view('dashboard/aset/create', ['kategori_asets' => $kategori_asets, 'users' => $users]);
     }
 
     /**
@@ -35,7 +40,32 @@ class AsetController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // dd(json_encode($request->kategori_aset_id));
+        $request->validate([
+            'user_id' => 'required',
+            'kode_barang' => 'required',
+            'nama_barang' => 'required',
+            'kategori_aset_id' => 'required',
+            'merk_tipe' => 'required',
+            'ukuran' => 'required',
+            'bahan' => 'required',
+            'tahun_pembelian' => 'required',
+            'harga' => 'required',
+        ]);
+
+        Aset::create([
+            'user_id' => $request->user_id,
+            'kode_barang' => $request->kode_barang,
+            'nama_barang' => $request->nama_barang,
+            'kategori_aset_id' => json_encode($request->kategori_aset_id),
+            'merk_tipe' => $request->merk_tipe,
+            'ukuran' => $request->ukuran,
+            'bahan' => $request->bahan,
+            'tahun_pembelian' => $request->tahun_pembelian,
+            'harga' => $request->harga,
+            'keterangan' => $request->keterangan,
+        ]);
+        return redirect('dashboard/aset')->with('status', 'Data Aset TIK Berhasil Ditambah');
     }
 
     /**
