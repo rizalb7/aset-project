@@ -21,16 +21,19 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return redirect('login');
 });
+Route::get('/nope', function () {
+    return view('404');
+});
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::group(['middleware' => ['auth', 'role:superadmin']], function () {
     Route::resource('dashboard/dataopd', DataOpdController::class);
     Route::resource('dashboard/kategori-aset', KategoriAsetController::class);
     Route::resource('dashboard/user', UserController::class);
 });
-Route::group(['middleware' => ['auth', 'role:superadmin, admin_opd']], function () {
+Route::group(['middleware' => ['auth', 'role:superadmin,admin_opd']], function () {
     Route::get('/dashboard/home', function () {
         return view('dashboard.home');
     });
