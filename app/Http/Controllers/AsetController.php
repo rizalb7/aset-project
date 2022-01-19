@@ -80,7 +80,7 @@ class AsetController extends Controller
      */
     public function show(Aset $aset)
     {
-        //
+        return view('dashboard/aset/show', ['aset' => $aset]);
     }
 
     /**

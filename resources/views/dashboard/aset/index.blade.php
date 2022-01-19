@@ -39,6 +39,10 @@
                     @endif
                     <td>
                         <center>
+                            <a href="{{ url('dashboard/aset/' . $item->id) }}"
+                                class="btn btn-secondary btn-sm" title="Show aset">
+                                <i class="bi bi-eye"></i>
+                            </a>
                             <a href="{{ url('dashboard/aset/' . $item->id . '/edit') }}"
                                 class="btn btn-info btn-sm" title="Edit aset">
                                 <i class="bi bi-pencil"></i>
