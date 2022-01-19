@@ -29,7 +29,11 @@
                     <th scope="row">{{$loop->iteration}}</th>
                     <td>{{$item->kode_barang}}</td>
                     <td>{{$item->nama_barang}}</td>
-                    <td>{{$item->kategori_aset_id}}</td>
+                    <td>
+                        @foreach (json_decode($item->kategori_aset_id) as $item1)
+                            <span class="badge bg-success">{{\App\Models\KategoriAset::whereId($item1)->first()->nama_kategori}}</span>
+                        @endforeach
+                    </td>
                     @if (auth()->user()->role == 'superadmin')
                         <td>{{\App\Models\DataOpd::whereId($item->user->data_opd_id)->first()->nama_opd}}</td>
                     @endif

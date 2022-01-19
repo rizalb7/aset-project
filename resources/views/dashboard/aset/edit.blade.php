@@ -44,7 +44,7 @@
                     @enderror
                   </div>
                 </div>
-                <div class="row mb-3">
+                {{-- <div class="row mb-3">
                   <label class="col-sm-2 col-form-label">Kategori</label>
                   <div class="col-sm-10">
                     <select name="kategori_aset_id[]" id="kategori_aset_id" class="form-select" multiple aria-label="multiple select example">
@@ -54,7 +54,7 @@
                         @endforeach
                     </select>
                   </div>
-                </div>
+                </div> --}}
                 <div class="row mb-3">
                   <label for="merk_tipe" class="col-sm-2 col-form-label">Merk/Tipe</label>
                   <div class="col-sm-10">

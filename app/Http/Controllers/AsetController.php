@@ -16,7 +16,11 @@ class AsetController extends Controller
      */
     public function index()
     {
-        $asets = Aset::all();
+        if (auth()->user()->role == 'superadmin'){
+            $asets = Aset::all();
+        }else{
+            $asets = Aset::where('user_id', auth()->user()->id)->get();
+        }
         return view('dashboard/aset/index', ['asets' => $asets]);
     }
 
@@ -87,7 +91,9 @@ class AsetController extends Controller
      */
     public function edit(Aset $aset)
     {
-        //
+        $kategori_asets = KategoriAset::all();
+        $users = User::where('role', 'NOT LIKE', 'superadmin')->get();
+        return view('dashboard/aset/edit', ['aset' => $aset, 'kategori_asets' => $kategori_asets, 'users' => $users]);
     }
 
     /**
@@ -99,7 +105,30 @@ class AsetController extends Controller
      */
     public function update(Request $request, Aset $aset)
     {
-        //
+        // dd(json_encode($request->kategori_aset_id));
+        $request->validate([
+            'user_id' => 'required',
+            'kode_barang' => 'required',
+            'nama_barang' => 'required',
+            'merk_tipe' => 'required',
+            'ukuran' => 'required',
+            'bahan' => 'required',
+            'tahun_pembelian' => 'required',
+            'harga' => 'required',
+        ]);
+
+        $aset->update([
+            'user_id' => $request->user_id,
+            'kode_barang' => $request->kode_barang,
+            'nama_barang' => $request->nama_barang,
+            'merk_tipe' => $request->merk_tipe,
+            'ukuran' => $request->ukuran,
+            'bahan' => $request->bahan,
+            'tahun_pembelian' => $request->tahun_pembelian,
+            'harga' => $request->harga,
+            'keterangan' => $request->keterangan,
+        ]);
+        return redirect('dashboard/aset')->with('status', 'Data Aset TIK Berhasil Diubah');
     }
 
     /**
@@ -110,6 +139,7 @@ class AsetController extends Controller
      */
     public function destroy(Aset $aset)
     {
-        //
+        $aset->delete();
+        return redirect('dashboard/aset')->with('status', 'Data Aset TIK Berhasil Dihapus');
     }
 }

@@ -134,6 +134,7 @@
         </ul>
       </li><!-- End Aset Nav -->
 
+      @if (auth()->user()->role == 'superadmin')
       <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#kataset-nav" data-bs-toggle="collapse" href="#">
           <i class="bi bi-layout-text-window"></i><span>Kategori Aset TIK</span><i class="bi bi-chevron-down ms-auto"></i>
@@ -187,6 +188,7 @@
           </li>
         </ul>
       </li><!-- End OPD Nav -->
+      @endif
 
       {{-- <li class="nav-item">
         <a class="nav-link collapsed" href="pages-register.html">
